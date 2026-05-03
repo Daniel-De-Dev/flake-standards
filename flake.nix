@@ -28,6 +28,11 @@
                 programs.nixfmt.enable = true;
                 programs.nixfmt.strict = true;
                 programs.nixfmt.width = 80;
+
+                # Shell
+                programs.shfmt.enable = true;
+                programs.shfmt.indent_size = 2;
+                programs.shfmt.simplify = true;
               };
 
               formatter = config.treefmt.build.wrapper;
