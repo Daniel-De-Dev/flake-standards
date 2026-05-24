@@ -33,6 +33,16 @@
                 programs.shfmt.enable = true;
                 programs.shfmt.indent_size = 2;
                 programs.shfmt.simplify = true;
+
+                # Markdown
+                programs.prettier = {
+                  enable = true;
+                  includes = [ "*.md" ];
+                  settings = {
+                    proseWrap = "preserve";
+                    printWidth = 80;
+                  };
+                };
               };
 
               formatter = config.treefmt.build.wrapper;
