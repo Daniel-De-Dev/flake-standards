@@ -43,6 +43,9 @@
                     printWidth = 80;
                   };
                 };
+
+                # fish
+                programs.fish_indent.enable = true;
               };
 
               formatter = config.treefmt.build.wrapper;
