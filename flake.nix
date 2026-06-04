@@ -46,6 +46,19 @@
 
                 # fish
                 programs.fish_indent.enable = true;
+
+                # Lua
+                programs.stylua = {
+                  enable = true;
+                  includes = [ "*.lua" ];
+                  settings = {
+                    indent_type = "Spaces";
+                    indent_width = 2;
+                    quote_style = "ForceSingle";
+                    collapse_simple_statement = "Always";
+                    column_width = 80;
+                  };
+                };
               };
 
               formatter = config.treefmt.build.wrapper;
