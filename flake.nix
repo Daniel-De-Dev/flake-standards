@@ -13,57 +13,75 @@
   outputs =
     inputs@{ flake-parts, treefmt-nix, ... }:
     let
-      sharedModule =
-        { ... }:
-        {
-          imports = [ treefmt-nix.flakeModule ];
+      sharedModule = { ... }: {
+        imports = [ treefmt-nix.flakeModule ];
 
-          perSystem =
-            { config, ... }:
-            {
-              treefmt = {
-                projectRootFile = "flake.nix";
+        perSystem = { config, ... }: {
+          treefmt = {
+            projectRootFile = "flake.nix";
 
-                # Nix
-                programs.nixfmt.enable = true;
-                programs.nixfmt.strict = true;
-                programs.nixfmt.width = 80;
+            settings.global.excludes = [
+              "result/**"
+              ".direnv/**"
+              "node_modules/**"
+              "target/**"
+            ];
 
-                # Shell
-                programs.shfmt.enable = true;
-                programs.shfmt.indent_size = 2;
-                programs.shfmt.simplify = true;
-
-                # Markdown
-                programs.prettier = {
-                  enable = true;
-                  includes = [ "*.md" ];
-                  settings = {
-                    proseWrap = "preserve";
-                    printWidth = 80;
-                  };
-                };
-
-                # fish
-                programs.fish_indent.enable = true;
-
-                # Lua
-                programs.stylua = {
-                  enable = true;
-                  includes = [ "*.lua" ];
-                  settings = {
-                    indent_type = "Spaces";
-                    indent_width = 2;
-                    quote_style = "ForceSingle";
-                    collapse_simple_statement = "Always";
-                    column_width = 80;
-                  };
-                };
-              };
-
-              formatter = config.treefmt.build.wrapper;
+            # Nix
+            programs.nixfmt = {
+              enable = true;
+              strict = true;
+              width = 80;
             };
+
+            # Auto-fix Nix anti-patterns (statix)
+            programs.statix.enable = true;
+
+            # Auto-remove dead Nix code (deadnix)
+            programs.deadnix.enable = true;
+
+            # Shell
+            programs.shfmt = {
+              enable = true;
+              indent_size = 2;
+              simplify = true;
+            };
+
+            # Markdown, YAML, and JSON via Prettier
+            programs.prettier = {
+              enable = true;
+              includes = [
+                "*.md"
+                "*.yaml"
+                "*.yml"
+                "*.json"
+              ];
+              settings = {
+                proseWrap = "preserve";
+                printWidth = 80;
+              };
+            };
+
+            # fish
+            programs.fish_indent.enable = true;
+
+            # Lua
+            programs.stylua = {
+              enable = true;
+              includes = [ "*.lua" ];
+              settings = {
+                indent_type = "Spaces";
+                indent_width = 2;
+                quote_style = "ForceSingle";
+                collapse_simple_statement = "Always";
+                column_width = 80;
+              };
+            };
+          };
+
+          formatter = config.treefmt.build.wrapper;
         };
+      };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
