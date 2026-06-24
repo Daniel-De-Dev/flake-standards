@@ -25,6 +25,12 @@
               ".direnv/**"
               "node_modules/**"
               "target/**"
+              "bin/**"
+              "obj/**"
+              ".vs/**"
+              ".sbox/**"
+              "*.vpk"
+              "*_c"
             ];
 
             # Nix
@@ -77,6 +83,12 @@
                 column_width = 80;
               };
             };
+
+            # C#
+            programs.csharpier.enable = true;
+
+            # TOML
+            programs.taplo.enable = true;
           };
 
           formatter = config.treefmt.build.wrapper;
