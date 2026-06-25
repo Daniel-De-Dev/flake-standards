@@ -87,6 +87,14 @@
             # C#
             programs.csharpier.enable = true;
 
+            # A fix to configure the tool since it doesnt expose flags or options
+            settings.formatter.csharpier = {
+              options = [
+                "--config-path"
+                "${./rules/.csharpierrc.json}"
+              ];
+            };
+
             # TOML
             programs.taplo.enable = true;
           };
