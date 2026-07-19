@@ -53,7 +53,7 @@
               simplify = true;
             };
 
-            # Markdown, YAML, and JSON via Prettier
+            # Markdown, YAML, JSON, JS, and TS via Prettier
             programs.prettier = {
               enable = true;
               includes = [
@@ -61,6 +61,10 @@
                 "*.yaml"
                 "*.yml"
                 "*.json"
+                "*.js"
+                "*.ts"
+                "*.jsx"
+                "*.tsx"
               ];
               settings = {
                 proseWrap = "preserve";
