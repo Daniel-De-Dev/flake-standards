@@ -16,7 +16,7 @@
       sharedModule = { ... }: {
         imports = [ treefmt-nix.flakeModule ];
 
-        perSystem = { config, ... }: {
+        perSystem = { config, lib, ... }: {
           treefmt = {
             projectRootFile = "flake.nix";
 
@@ -90,8 +90,6 @@
 
             # C#
             programs.csharpier.enable = true;
-
-            # A fix to configure the tool since it doesnt expose flags or options
             settings.formatter.csharpier = {
               options = [
                 "--config-path"
@@ -101,6 +99,16 @@
 
             # TOML
             programs.taplo.enable = true;
+
+            # Rust
+            programs.rustfmt = {
+              enable = true;
+              edition = "2024";
+            };
+            settings.formatter.rustfmt.options = lib.mkAfter [
+              "--config-path"
+              "${./rules/rustfmt.toml}"
+            ];
           };
 
           formatter = config.treefmt.build.wrapper;
