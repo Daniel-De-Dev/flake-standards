@@ -109,6 +109,9 @@
               "--config-path"
               "${./rules/rustfmt.toml}"
             ];
+
+            # Typst
+            programs.typstyle.enable = true;
           };
 
           formatter = config.treefmt.build.wrapper;
