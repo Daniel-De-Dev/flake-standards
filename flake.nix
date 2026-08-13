@@ -115,6 +115,10 @@
 
             # Python
             programs.ruff-format.enable = true;
+            settings.formatter.ruff-format.options = lib.mkAfter [
+              "--config"
+              "indent-width=2"
+            ];
           };
 
           formatter = config.treefmt.build.wrapper;
