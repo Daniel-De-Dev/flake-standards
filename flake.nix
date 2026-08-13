@@ -112,6 +112,9 @@
 
             # Typst
             programs.typstyle.enable = true;
+
+            # Python
+            programs.ruff-format.enable = true;
           };
 
           formatter = config.treefmt.build.wrapper;
