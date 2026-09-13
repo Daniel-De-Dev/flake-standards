@@ -111,7 +111,11 @@
             ];
 
             # Typst
-            programs.typstyle.enable = true;
+            programs.typstyle = {
+              enable = true;
+              lineWidth = 80;
+              wrapText = true;
+            };
 
             # Python
             programs.ruff-format.enable = true;
